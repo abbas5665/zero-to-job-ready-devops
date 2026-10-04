@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zero to Job-Ready DevOps · Abbas Kazmi</title>
+<style>
+:root{--bg:#060A12;--pn:rgba(13,24,40,.72);--ln:#1E3A52;--tx:#E6F1F5;--mu:#8FA9B8;--am:#4DF3E3;--tl:#A78BFA;--r:6px;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(900px 500px at 80% -10%,#1B2B63 0,transparent 60%),radial-gradient(700px 500px at 0 100%,#0B3B45 0,transparent 60%),var(--bg);background-attachment:fixed;color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Iowan Old Style",Georgia,serif;line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(2rem,5vw,3.4rem)}h2{font-size:1.7rem}h3{font-size:1.15rem}
+code,.cmd{font-family:ui-monospace,"Cascadia Code",Menlo,monospace}
+a{color:var(--am)}
+nav{position:sticky;top:0;z-index:5;background:rgba(6,10,18,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln);display:flex;gap:.25rem;overflow-x:auto;padding:.5rem 1rem;align-items:center}
+nav b{font-family:Georgia,serif;margin-right:1rem;white-space:nowrap}
+nav a{color:var(--mu);text-decoration:none;padding:.35rem .7rem;border-radius:var(--r);white-space:nowrap;font-size:.92rem}
+nav a.on{background:var(--pn);color:var(--tx);box-shadow:inset 0 -2px var(--am)}
+nav a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--am);outline-offset:2px}
+main{max-width:900px;margin:0 auto;padding:2rem 1.2rem 4rem}
+.hero{display:grid;grid-template-columns:1fr 240px;gap:2rem;align-items:center;margin-bottom:2.5rem}
+.hero img{width:100%;border-radius:var(--r);border:1px solid var(--ln);display:block}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.hero img{max-width:220px}}
+.lead{font-size:1.15rem;color:var(--mu)}
+.box{background:var(--pn);border:1px solid var(--ln);border-radius:var(--r);padding:1rem 1.2rem;margin:1rem 0}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.btn{background:var(--am);color:#04121A;border:0;padding:.55rem 1rem;border-radius:var(--r);font-weight:600;text-decoration:none;cursor:pointer;font-size:.95rem}
+.btn.g{background:none;color:var(--tx);border:1px solid var(--ln)}
+.bar{height:8px;background:var(--ln);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--tl)}
+.tl{border-left:2px solid var(--ln);margin-left:.4rem}
+.ph{position:relative;padding:0 0 1.6rem 1.4rem}
+.ph:before{content:"";position:absolute;left:-7px;top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--am)}
+.ph small{color:var(--tl);font-weight:600}
+.tags span{display:inline-block;background:var(--pn);border:1px solid var(--ln);border-radius:4px;padding:0 .45rem;margin:.15rem .2rem .15rem 0;font-size:.82rem;color:var(--mu)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem}
+.item{display:flex;gap:.7rem;padding:.55rem .2rem;border-bottom:1px solid var(--ln);align-items:flex-start}
+.item input{margin-top:.45rem;width:18px;height:18px;accent-color:var(--tl);flex:none}
+.cmd{background:var(--bg);border:1px solid var(--ln);border-radius:4px;padding:.1rem .45rem;font-size:.88rem;color:var(--am);display:inline-block;cursor:pointer;word-break:break-all}
+.item span{color:var(--mu);font-size:.93rem;display:block}
+.item.d .cmd{opacity:.5;text-decoration:line-through}
+footer{border-top:1px solid var(--ln);padding:1.5rem;text-align:center;color:var(--mu);font-size:.9rem}
+.hero img{animation:glow 4s ease-in-out infinite alternate}@keyframes glow{from{box-shadow:0 0 12px rgba(77,243,227,.25)}to{box-shadow:0 0 38px rgba(167,139,250,.55)}}
+h1{background:linear-gradient(90deg,var(--tx),var(--am));-webkit-background-clip:text;background-clip:text;color:transparent}
+.box{box-shadow:0 8px 30px rgba(0,0,0,.35);backdrop-filter:blur(6px)}
+main,footer{position:relative;z-index:1}#fx{position:fixed;inset:0;z-index:0;pointer-events:none}
+.tk{overflow:hidden;border-block:1px solid var(--ln);margin:0 0 2rem;white-space:nowrap}.tk div{display:inline-block;padding:.5rem 0;animation:mq 40s linear infinite;color:var(--am);font:.85rem ui-monospace,monospace}@keyframes mq{to{transform:translateX(-50%)}}
+.map{overflow-x:auto;border:1px solid var(--ln);border-radius:var(--r);background:var(--pn)}.map svg{min-width:760px;width:100%;display:block}
+.road{fill:none;stroke:var(--ln);stroke-width:12;stroke-linecap:round}.flow{fill:none;stroke:var(--am);stroke-width:2;stroke-dasharray:6 12;animation:fl 1.2s linear infinite}@keyframes fl{to{stroke-dashoffset:-18}}
+.nd{cursor:pointer;outline:none}.nd circle{fill:var(--bg);stroke:var(--am);stroke-width:2.5;transition:.2s}.nd .pl{fill:none!important;opacity:.5}
+.nd:hover circle,.nd.on circle,.nd:focus-visible circle{fill:var(--am);filter:drop-shadow(0 0 8px var(--am))}
+.nd text{fill:var(--tx);font:600 13px system-ui;text-anchor:middle;pointer-events:none}.nd .lb{fill:var(--mu);font-weight:400;font-size:12px}.nd.on text:not(.lb),.nd:hover text:not(.lb){fill:#04121A}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+#tm{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);z-index:20;display:flex;flex-direction:column;background:rgba(4,9,16,.95);backdrop-filter:blur(14px);border-left:1px solid var(--am);box-shadow:-10px 0 50px rgba(77,243,227,.15);transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1);font:13px/1.5 ui-monospace,Menlo,monospace}
+body.tm #tm{transform:none}
+#tm:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(77,243,227,.04) 0 1px,transparent 1px 3px)}
+.th{display:flex;gap:6px;align-items:center;padding:.6rem .8rem;border-bottom:1px solid var(--ln)}
+.th i{width:10px;height:10px;border-radius:50%;background:#ff5f56}.th i:nth-child(2){background:#ffbd2e}.th i:nth-child(3){background:#27c93f}
+.th b{margin-left:.5rem;color:var(--am)}.th span{margin-left:auto;color:var(--mu);font-size:11px}.th button{background:none;border:0;color:var(--tx);font-size:22px;cursor:pointer}
+#to{flex:1;overflow:auto;padding:.8rem;white-space:pre-wrap;word-break:break-word;color:#CFE9E6}#to .p{color:var(--am)}#to .ok{color:#27c93f}
+.ti{display:flex;gap:.5rem;padding:.7rem .8rem;border-top:1px solid var(--ln);color:var(--am)}
+#tin{flex:1;min-width:0;background:none;border:0;color:var(--tx);font:inherit;outline:none;caret-color:var(--am)}
+#fb{position:fixed;right:1rem;bottom:1rem;z-index:19;background:var(--am);color:#04121A;border:0;border-radius:999px;padding:.6rem 1.1rem;font:600 .9rem ui-monospace,monospace;cursor:pointer;box-shadow:0 0 24px rgba(77,243,227,.6);animation:g2 2.5s ease-in-out infinite alternate}@keyframes g2{to{box-shadow:0 0 40px rgba(167,139,250,.8)}}
+body.tm #fb{display:none}@media(min-width:1100px){body.tm main{margin-right:460px}}
+</style></head><body>
+<nav id="nav" aria-label="Main"></nav>
+<main id="app"></main>
+<footer>Built by Abbas Kazmi · works offline · progress is saved in this browser</footer>
+<script>
+const ME={name:"Abbas Kazmi",email:"",li:"https://www.linkedin.com/in/abbas-kazmi-911ak/",x:"https://x.com/AbbasKazmi911"};
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let P={};try{P=JSON.parse(localStorage.getItem("dk")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("dk",JSON.stringify(P))}catch(e){}};
+
+const PH=[
+["DevOps mindset + Linux","Months 1–3","Why DevOps exists, culture, CI/CD mindset, roles (DevOps, SRE, Platform, Cloud). Then Linux: filesystem, permissions, processes, services, logs, disks, users, SSH.","Troubleshoot a broken Ubuntu server over SSH without a GUI.","Harden a fresh Ubuntu VM: key-only SSH, firewall, non-root user."],
+["Bash + Python","Months 3–5","Bash: variables, loops, functions, exit codes, pipes. Python: files, JSON/YAML, requests, subprocess, exceptions. Rule: do a task twice by hand, script it the third time.","Automate health checks, backups and log cleanup.","A server-health script that alerts when disk or a service fails."],
+["Networking","Months 4–6","IPs, CIDR, subnets, DNS records, ports, TCP vs UDP, firewalls, load balancers, Layer 4 vs 7.","Explain what happens from typing a URL to the page loading.","Subnet a /16 into public and private ranges on paper, then in AWS."],
+["AWS cloud","Months 6–9","IAM, EC2, VPC (subnets, route tables, IGW, NAT), S3/EBS/EFS, RDS, Lambda, CloudWatch, billing alerts. Set a budget alert first.","Build a VPC with public and private subnets by hand.","Host a web app on EC2 behind a load balancer, then break and fix it."],
+["Git, GitHub + CI/CD","Months 8–10","Branching, rebase, PRs, reviews, branch protection. GitHub Actions: jobs, runners, secrets, artifacts, environments.","Ship every change through a pipeline: lint, test, build.","Pipeline that tests and builds an app on each pull request."],
+["Docker","Months 10–12","Images, Dockerfile, build/run/exec/logs, networks, volumes, registries (Docker Hub, ECR), multi-stage builds, Compose.","Containerize any app and explain every Dockerfile line.","Multi-container app with Compose, pushed to ECR by the pipeline."],
+["Kubernetes","Months 12–15","Control plane, pods, deployments, services, ConfigMaps, secrets, ingress, PV/PVC, RBAC, NetworkPolicy, Helm.","Fix CrashLoopBackOff, ImagePullBackOff and Pending pods from kubectl alone.","Deploy a 3-tier app with ingress and rolling updates."],
+["DevSecOps + Terraform","Months 14–17","Secret, dependency, SAST and image scanning (Trivy). Terraform: providers, state, remote backend, modules, environments.","Recreate your whole AWS setup from code with one apply.","Terraform modules for VPC + EKS, with scans gating the pipeline."],
+["GitOps + Observability","Months 16–19","Argo CD, desired vs actual state. Prometheus, Grafana, Loki, tracing, alerting, SLIs and SLOs.","Deploy by merging a PR; know the app is unhealthy before users tell you.","Argo CD deploying to Kubernetes with dashboards and alerts."],
+["AI-era DevOps","Months 18–20+","AI workloads on GPUs, model serving (vLLM), MLOps pipelines, AIOps (anomaly detection, alert correlation, root cause). Use AI assistants to write and review IaC, pipelines and runbooks, but verify every output.","Show you can use AI as a force multiplier without trusting it blindly.","Serve a small model on Kubernetes with monitoring and autoscaling."]];
+
+const LABS={
+linux:{t:"Linux",d:"Run these on Ubuntu. For each command: run it, change a flag, break something, fix it. Click a command to copy it, tick the box when you can do it without looking.",
+setup:"Lab setup: install Ubuntu 24.04 in VirtualBox, WSL2 (<code>wsl --install -d Ubuntu</code>), or Multipass (<code>multipass launch 24.04 --name lab</code>). Snapshot it so you can break it freely.",
+g:[
+["Navigate + files",[["pwd; ls -lah","Where am I, what is here (with sizes and hidden files)"],["cd /var/log && cd -","Move around and jump back"],["mkdir -p lab/a/b && touch lab/a/b/f.txt","Create nested folders and a file"],["cp -r lab lab2 && mv lab2 lab3","Copy, then rename a directory"],["rm -rf lab3","Delete a directory tree (check the path twice)"],["less /etc/os-release","Page through a file; q to quit"],["head -n5 f; tail -n20 f","First and last lines"],["find / -name '*.conf' -mtime -1 2>/dev/null","Find files changed in the last day"],["grep -rin 'error' /var/log","Search recursively, ignoring case, with line numbers"],["which python3; type ls","Where a command comes from"],["tree -L2","Directory layout (apt install tree)"]]],
+["Text processing",[["cat f | sort | uniq -c | sort -nr","Count and rank repeated lines"],["awk '{print $1}' access.log","Print the first column"],["sed -i 's/old/new/g' f","In-place find and replace"],["cut -d: -f1 /etc/passwd","List usernames"],["wc -l f","Count lines"],["xargs","Feed output into another command: find . -name '*.log' | xargs rm"],["tee out.txt","Write to screen and file: cmd | tee out.txt"],["jq '.items[].name' f.json","Query JSON (apt install jq)"]]],
+["Permissions + users",[["ls -l; stat f","Read the rwx bits and owner"],["chmod 755 script.sh; chmod u+x f","Make executable; know 755, 644, 700"],["chown user:group f","Change owner and group"],["sudo useradd -m -s /bin/bash dev","Create a user with a home directory"],["sudo usermod -aG sudo dev","Add to a group"],["sudo passwd dev","Set a password"],["id; whoami; groups","Who am I and what can I do"],["sudo visudo","Edit sudo rules safely"]]],
+["Processes + services",[["ps aux | grep nginx","Find a process"],["top; htop","Live CPU and memory; sort and kill inside"],["kill -15 PID; kill -9 PID","Ask nicely, then force"],["sleep 300 & jobs; fg; bg","Background jobs"],["nohup cmd &","Keep running after logout"],["systemctl status nginx","Is it running, and why not"],["sudo systemctl enable --now nginx","Start now and at boot"],["sudo systemctl restart nginx","Restart a service"],["systemctl list-units --failed","Everything that is broken"]]],
+["Logs + troubleshooting",[["journalctl -u nginx -f","Follow one service's logs"],["journalctl -p err -b","Errors since boot"],["tail -f /var/log/syslog","Follow the system log"],["dmesg -T | tail","Kernel messages with real times"],["free -h; uptime; vmstat 1 5","Memory, load, system activity"],["lsof -i :80","Which process holds port 80"],["strace -p PID","See what a stuck process is doing"]]],
+["Disk + storage",[["df -h","Free space per filesystem"],["du -sh * | sort -h","What is eating the disk"],["lsblk; blkid","Disks, partitions, UUIDs"],["sudo mount /dev/sdb1 /mnt","Mount a disk"],["cat /etc/fstab","Persistent mounts"],["sudo mkfs.ext4 /dev/sdb1","Format a new disk (destroys data)"],["ln -s target link","Symbolic link"]]],
+["Packages + archives",[["sudo apt update && sudo apt upgrade -y","Refresh and upgrade"],["sudo apt install -y nginx curl git","Install packages"],["apt search x; apt show x","Find and inspect"],["tar -czvf b.tgz dir/; tar -xzvf b.tgz","Compress and extract"],["curl -I https://example.com","Headers only"],["wget URL","Download a file"]]],
+["SSH + remote",[["ssh-keygen -t ed25519","Create a key pair"],["ssh-copy-id user@host","Install your public key"],["ssh -i key.pem user@host","Connect with a key"],["scp f user@host:/tmp/","Copy a file over SSH"],["rsync -avz dir/ user@host:/backup/","Efficient sync"],["~/.ssh/config","Host aliases: Host web / HostName / User / IdentityFile"],["ssh -L 8080:localhost:80 user@host","Port-forward tunnel"],["sudo ufw allow 22/tcp && sudo ufw enable","Basic firewall"]]],
+["Automation",[["crontab -e","Schedule: */5 * * * * /path/script.sh"],["#!/usr/bin/env bash; set -euo pipefail","Safe script header"],["echo $?","Exit code of the last command"],["cmd1 && cmd2 || cmd3","Chain on success or failure"]]]]},
+net:{t:"Networking",d:"Same rule as Linux: run, break, fix. Use two Ubuntu VMs or a VM plus your host.",setup:"Install tools: <code>sudo apt install -y dnsutils net-tools traceroute nmap tcpdump iproute2</code>",
+g:[["Connectivity + DNS",[["ip a; ip route","Addresses and routes"],["ping -c4 8.8.8.8","Reachability by IP"],["ping -c4 example.com","Reachability plus DNS"],["dig example.com A +short","A record"],["dig MX example.com; dig NS example.com","Mail and name servers"],["nslookup example.com 1.1.1.1","Query a specific resolver"],["traceroute example.com","Hop-by-hop path"],["cat /etc/resolv.conf","Which resolver you use"]]],
+["Ports + traffic",[["ss -tulpn","Listening ports and owners"],["nc -zv host 443","Is the port open"],["curl -v https://example.com","Full HTTP conversation"],["nmap -p 22,80,443 host","Scan ports (only your own hosts)"],["sudo tcpdump -i any port 53 -nn","Watch DNS packets"],["ipcalc 10.0.1.0/24","Network, broadcast, hosts (apt install ipcalc)"]]]]},
+docker:{t:"Docker",d:"Install Docker on Ubuntu with the official docs, then work through these.",setup:"Add yourself to the docker group: <code>sudo usermod -aG docker $USER</code> and log in again.",
+g:[["Run + inspect",[["docker run -d --name web -p 8080:80 nginx","Run a container and publish a port"],["docker ps -a","Running and stopped containers"],["docker logs -f web","Follow logs"],["docker exec -it web sh","Shell inside a container"],["docker stop web && docker rm web","Stop and remove"],["docker images; docker rmi IMG","List and delete images"],["docker inspect web","Full JSON details"],["docker system prune -af","Reclaim disk space"]]],
+["Build + ship",[["docker build -t app:1.0 .","Build from a Dockerfile"],["docker tag app:1.0 USER/app:1.0","Name it for a registry"],["docker push USER/app:1.0","Publish"],["docker run -v data:/var/lib/x IMG","Named volume for persistent data"],["docker network create net1","Custom bridge network"],["docker compose up -d","Start a multi-container stack"],["docker compose logs -f","Stack logs"],["docker compose down -v","Tear it down"]]]]}};
+
+const MK=(t,d,s,x)=>({t,d,setup:s,g:x.trim().split(/^## /m).filter(Boolean).map(b=>{const l=b.trim().split("\n");return [l[0],l.slice(1).map(r=>r.split(" :: "))]})});
+LABS.net.g.push(...MK("","","",`
+## Firewall + web
+sudo ufw status verbose :: Current firewall rules
+sudo iptables -L -n -v :: Low-level packet rules
+curl -H "Host: a.com" http://IP :: Test a virtual host
+Lab: subnet 10.0.0.0/16 into four /24s :: Write ranges, first and last usable IP
+Lab: break DNS on purpose :: Point resolv.conf at a bad server, diagnose with dig, fix
+Lab: nginx reverse proxy :: Two backends, round-robin, kill one and watch failover
+`).g);
+LABS.pybash=MK("Python + Bash","Automate what you did by hand. Run every line in a scratch folder.","Install: <code>sudo apt install -y python3-venv shellcheck jq</code>",`
+## Bash scripting
+#!/usr/bin/env bash; set -euo pipefail :: Safe script header
+name="$1"; echo "Hi $name" :: Arguments and variables
+if [ -f f ]; then echo yes; fi :: Test that a file exists
+for f in *.log; do gzip "$f"; done :: Loop over files
+while read -r l; do echo "$l"; done < f :: Read a file line by line
+check() { systemctl is-active --quiet "$1" || echo "$1 down"; } :: Function: service check
+trap 'echo failed' ERR :: Run code on error
+shellcheck script.sh :: Lint your script
+## Python
+python3 -m venv .venv && source .venv/bin/activate :: Isolated environment
+pip install requests pyyaml :: Install libraries
+python3 -c "import json,sys;print(json.load(sys.stdin))" < f.json :: Parse JSON from a pipe
+requests.get(url, timeout=5).status_code :: Health-check an endpoint
+subprocess.run(["df","-h"],capture_output=True,text=True) :: Run a command, capture output
+yaml.safe_load(open("c.yml")) :: Read YAML config
+try: ... except Exception as e: :: Handle errors without crashing
+argparse.ArgumentParser() :: Give scripts command-line flags
+## Mini-projects
+Lab: disk-usage.sh :: Alert when any disk passes 80%
+Lab: backup.sh :: tar a folder, name by date, keep the last 7
+Lab: health.py :: Check 5 URLs, print status and latency, exit 1 on failure
+Lab: user-setup.sh :: Create users from a CSV with keys and groups
+`);
+LABS.git=MK("Git + GitHub","Do these in a throwaway repo, and break things on purpose.","Create a GitHub account, then <code>sudo apt install -y git gh</code>",`
+## Basics
+git config --global user.name "Abbas" :: Set your identity
+git init; git clone URL :: Start or copy a repo
+git status; git diff; git diff --staged :: See changes
+git add -p :: Stage selected hunks
+git commit -m "msg"; git commit --amend :: Save; fix the last commit
+git log --oneline --graph --all :: History as a graph
+## Branches + merging
+git switch -c feature/x :: New branch
+git merge feature/x :: Merge it
+git rebase main :: Replay your commits on main
+git cherry-pick SHA :: Take one commit
+git stash; git stash pop :: Shelve work in progress
+git tag -a v1.0 -m "release" :: Release tag
+## Undo + debug
+git restore f; git restore --staged f :: Discard / unstage
+git reset --hard HEAD~1 :: Drop last commit (destructive)
+git revert SHA :: Safe undo with a new commit
+git reflog :: Recover "lost" commits
+git bisect start :: Binary-search the commit that broke it
+git blame f :: Who changed each line
+## Remotes + GitHub
+git remote -v; git fetch; git pull --rebase :: Sync with remote
+git push -u origin feature/x :: Publish a branch
+ssh-keygen -t ed25519 :: Then add the .pub key in GitHub settings
+gh auth login; gh pr create; gh pr merge :: Pull request flow from the terminal
+gh repo create; gh issue list :: Repos and issues
+## Labs
+Lab: merge conflict :: Edit the same line on two branches, resolve it
+Lab: protect main :: Require PR review and passing checks
+Lab: leaked secret :: Commit a fake key, then remove it from history
+Lab: GitHub Actions :: Workflow that runs tests on every PR
+`);
+LABS.jenkins=MK("Jenkins CI/CD","Build real pipelines as code. Then rebuild the same flow in GitHub Actions.","Run Jenkins: <code>docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts</code>",`
+## Setup
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword :: Unlock Jenkins
+Manage Jenkins > Plugins: Git, Pipeline, Docker Pipeline :: Install plugins
+Manage Jenkins > Credentials :: Store tokens here, never in code
+New Item > Multibranch Pipeline :: Build every branch of a repo
+## Jenkinsfile
+pipeline { agent any; stages { } } :: Declarative skeleton
+stage('Build') { steps { sh 'make build' } } :: A stage with a shell step
+environment { IMG = "app:$BUILD_NUMBER" } :: Environment variables
+withCredentials([string(credentialsId:'tok',variable:'T')]) { sh 'use $T' } :: Inject a secret
+post { failure { echo 'failed' } always { cleanWs() } } :: Notify and clean up
+when { branch 'main' } :: Deploy only from main
+parallel { stage('A'){ } stage('B'){ } } :: Run stages together
+input message: 'Deploy to prod?' :: Manual approval gate
+## Operate
+docker logs -f jenkins :: Controller logs
+GitHub > Settings > Webhooks > JENKINS_URL/github-webhook/ :: Trigger on push
+Manage Jenkins > Nodes :: Add a build agent
+## Labs
+Lab: hello pipeline :: Build, test, archive artifacts
+Lab: Docker build + push :: Image to Docker Hub using credentials
+Lab: deploy gate :: Auto to staging, approval to production
+Lab: same flow in GitHub Actions :: Compare the two
+`);
+LABS.k8s=MK("Kubernetes","Use kind or minikube, and work with the cluster until you can fix it blind.","Install kubectl and kind, then <code>kind create cluster</code> (needs Docker).",`
+## Cluster + context
+kubectl cluster-info; kubectl get nodes -o wide :: Cluster health
+kubectl config get-contexts; kubectl config use-context X :: Switch clusters
+kubectl create ns dev; kubectl get ns :: Namespaces
+kubectl api-resources :: Every object type available
+## Workloads
+kubectl run web --image=nginx :: Single pod
+kubectl create deployment web --image=nginx --replicas=3 :: Deployment
+kubectl scale deploy web --replicas=5 :: Scale
+kubectl set image deploy/web nginx=nginx:1.27 :: Rolling update
+kubectl rollout status deploy/web :: Watch a rollout
+kubectl rollout undo deploy/web :: Roll back
+kubectl apply -f app.yaml; kubectl delete -f app.yaml :: Declarative deploy
+kubectl create deploy x --image=nginx --dry-run=client -o yaml :: Generate YAML
+## Services + config
+kubectl expose deploy web --port=80 :: ClusterIP service
+kubectl port-forward svc/web 8080:80 :: Reach it locally
+kubectl create configmap c --from-literal=A=1 :: Config
+kubectl create secret generic s --from-literal=pw=x :: Secret
+kubectl get ingress; kubectl describe ingress i :: Ingress routing
+## Troubleshooting
+kubectl get pods -A -o wide :: Everything, with nodes
+kubectl describe pod P :: Events show why it fails
+kubectl logs P --previous :: Logs of the crashed container
+kubectl exec -it P -- sh :: Shell inside
+kubectl get events --sort-by=.lastTimestamp :: Recent cluster events
+kubectl top pods; kubectl top nodes :: Resource usage
+kubectl debug P -it --image=busybox :: Debug container
+## Storage + security
+kubectl get pv,pvc,sc :: Storage objects
+kubectl auth can-i delete pods --as dev :: Test RBAC
+kubectl create role r --verb=get --resource=pods :: Least-privilege role
+## Labs
+Lab: CrashLoopBackOff :: Bad command in a pod, find it with logs --previous
+Lab: ImagePullBackOff :: Typo the tag, fix from describe
+Lab: Pending pod :: Request 100 CPUs, read the scheduler event
+Lab: zero-downtime update :: Rolling update with a readiness probe
+`);
+LABS.helm=MK("Helm","Package and release Kubernetes apps.","Install: <code>curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash</code>",`
+## Using charts
+helm repo add bitnami https://charts.bitnami.com/bitnami :: Add a repo
+helm repo update; helm search repo nginx :: Find charts
+helm show values bitnami/nginx > values.yaml :: See the options
+helm install web bitnami/nginx -n dev --create-namespace :: Install a release
+helm install web bitnami/nginx -f values.yaml --set replicaCount=3 :: Override values
+helm list -A; helm status web -n dev :: Releases
+helm upgrade web bitnami/nginx -n dev --set replicaCount=2 :: Upgrade
+helm history web -n dev; helm rollback web 1 -n dev :: Revisions and rollback
+helm uninstall web -n dev :: Remove
+## Building charts
+helm create mychart :: Scaffold
+helm template mychart :: Render YAML locally
+helm lint mychart :: Check for errors
+helm install t ./mychart --dry-run --debug :: Test without applying
+helm package mychart :: Build the .tgz
+helm dependency update :: Pull sub-charts
+## Labs
+Lab: chart your own app :: Deployment and Service with image and replicas as values
+Lab: environments :: values-dev.yaml and values-prod.yaml with different replicas
+Lab: break an upgrade :: Use a bad image, then roll back
+`);
+LABS.terraform=MK("Terraform","Define infrastructure as code. Always destroy after a lab to avoid charges.","Install Terraform from HashiCorp's apt repo and run <code>aws configure</code>.",`
+## Core workflow
+terraform version :: Check the install
+terraform init :: Download providers, set up the backend
+terraform fmt -recursive :: Format
+terraform validate :: Syntax check
+terraform plan -out=tf.plan :: Preview changes
+terraform apply tf.plan :: Apply exactly that plan
+terraform output :: Show outputs
+terraform destroy :: Tear down
+## HCL building blocks
+provider "aws" { region = "us-east-1" } :: Provider
+resource "aws_s3_bucket" "b" { bucket = "unique-name" } :: Resource
+variable "env" { default = "dev" } :: Input variable
+output "id" { value = aws_s3_bucket.b.id } :: Output
+data "aws_ami" "u" { most_recent = true } :: Read existing data
+module "vpc" { source = "./modules/vpc" } :: Reusable module
+for_each = toset(["a","b"]) :: Create many from one block
+## State
+terraform state list; terraform state show ADDR :: Inspect state
+terraform import aws_s3_bucket.b NAME :: Adopt an existing resource
+terraform state rm ADDR :: Forget without deleting
+terraform workspace new staging :: Separate state per environment
+backend "s3" { bucket = "x" key = "tf.state" } :: Remote state; add a lock table
+terraform plan -refresh-only :: Detect drift
+## Labs
+Lab: S3 bucket :: Create, tag, destroy
+Lab: VPC module :: Public and private subnets, reused for dev and prod
+Lab: EC2 web server :: user_data installs nginx, security group allows 80
+Lab: remote state + lock :: Move state to S3
+`);
+LABS.aws=MK("AWS","Work with the CLI so you understand what the console hides.","Open an account, enable MFA on root, make an IAM admin user, <b>set a budget alert first</b>, then <code>aws configure</code>.",`
+## Identity + CLI
+aws sts get-caller-identity :: Who am I
+aws configure --profile lab :: Named profile
+aws iam create-user --user-name dev :: Create a user
+aws iam attach-user-policy --user-name dev --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess :: Least privilege
+aws iam list-roles --query 'Roles[].RoleName' :: List roles
+## VPC networking
+aws ec2 create-vpc --cidr-block 10.0.0.0/16 :: VPC
+aws ec2 create-subnet --vpc-id V --cidr-block 10.0.1.0/24 :: Subnet
+aws ec2 create-internet-gateway :: Then attach it with attach-internet-gateway
+aws ec2 create-route --route-table-id R --destination-cidr-block 0.0.0.0/0 --gateway-id I :: Default route
+aws ec2 create-security-group --group-name web --description web --vpc-id V :: Firewall
+aws ec2 authorize-security-group-ingress --group-id S --protocol tcp --port 443 --cidr 0.0.0.0/0 :: Open HTTPS
+## Compute + storage
+aws ec2 run-instances --image-id AMI --instance-type t3.micro --key-name K --subnet-id S :: Launch
+aws ec2 describe-instances --query 'Reservations[].Instances[].[InstanceId,State.Name]' --output table :: List
+aws ec2 terminate-instances --instance-ids I :: Delete
+aws s3 mb s3://my-unique-bucket :: Create a bucket
+aws s3 sync dir s3://my-unique-bucket --delete :: Sync a folder
+aws s3 ls s3://my-unique-bucket --recursive :: List objects
+aws ecr create-repository --repository-name app :: Image registry
+## Data, serverless, ops
+aws rds describe-db-instances :: Managed databases
+aws lambda invoke --function-name f out.json :: Run a function
+aws logs tail /aws/lambda/f --follow :: Stream logs
+aws budgets describe-budgets --account-id A :: Check cost alerts
+aws eks update-kubeconfig --name C :: Connect kubectl to EKS
+## Labs
+Lab: VPC by hand :: Public and private subnet, IGW, NAT, route tables
+Lab: web server on EC2 :: Install nginx, limit the security group to your IP
+Lab: static site on S3 :: Host a page from a bucket
+Lab: break it :: Delete a route, find it with Reachability Analyzer, fix
+Lab: rebuild with Terraform :: Same stack from code
+`);
+LABS.monitoring=MK("Monitoring","See what your systems are doing before users tell you.","Easiest: Docker Compose with Prometheus, Grafana and node_exporter, or kube-prometheus-stack via Helm on kind.",`
+## Prometheus
+helm install mon prometheus-community/kube-prometheus-stack -n mon --create-namespace :: Full stack on Kubernetes
+promtool check config prometheus.yml :: Validate config
+curl localhost:9090/api/v1/targets :: Scrape targets
+curl localhost:9100/metrics | head :: Raw node_exporter metrics
+## PromQL
+up :: Which targets are alive
+100 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))*100 :: CPU percent used
+node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes :: Memory available ratio
+rate(http_requests_total[5m]) :: Requests per second
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) :: p95 latency
+predict_linear(node_filesystem_avail_bytes[6h], 24*3600) < 0 :: Disk full within 24h
+## Alerts, Grafana, logs
+amtool check-config alertmanager.yml :: Validate alert routing
+Grafana > Connections > Data sources > Prometheus :: Connect the data
+Grafana > Dashboards > Import > 1860 :: Node Exporter Full dashboard
+helm install loki grafana/loki-stack :: Loki and Promtail for logs
+{app="web"} |= "error" :: LogQL: error lines for one app
+## Labs
+Lab: monitor a VM :: node_exporter, Prometheus, Grafana dashboard
+Lab: alert on 80% disk :: Fill the disk with fallocate and watch it fire
+Lab: define an SLO :: 99.5% availability, alert on error-budget burn
+`);
+{const o={...LABS};Object.keys(LABS).forEach(k=>delete LABS[k]);["linux","net","pybash","git","jenkins","docker","k8s","helm","terraform","aws","monitoring"].forEach(k=>LABS[k]=o[k])}
+
+LABS.ps=MK("Windows/PowerShell","PowerShell works with objects, not text, so pipelines are powerful. Use a Windows Server VM or your own PC.","Use Windows PowerShell 5.1 or install PowerShell 7 (<code>pwsh</code>).",`
+## Basics
+Get-Help Get-Process -Examples :: Built-in docs with examples
+Get-Command *service* :: Find commands by name
+Get-Process | Sort CPU -Desc | Select -First 5 :: Top CPU users, passing objects down the pipe
+Get-Service | Where Status -eq Running :: Filter running services
+Restart-Service Spooler :: Restart a service
+Get-WinEvent -FilterHashtable @{LogName='System';Level=2} :: Error events from the System log
+## Files, users, network
+Get-ChildItem C:/Logs -Recurse -Filter *.log :: Find files
+Get-Content app.log -Tail 20 -Wait :: Follow a log like tail -f
+Get-LocalUser; New-LocalUser dev :: List and create users
+Test-NetConnection host -Port 443 :: Port check, like nc
+Get-NetIPAddress; Resolve-DnsName example.com :: IPs and DNS
+Get-Disk; Get-Volume :: Disks and free space
+## Remote + scripting
+Enter-PSSession -ComputerName srv1 :: Interactive remote shell
+Invoke-Command -ComputerName srv1 -ScriptBlock { Get-Service } :: Run a command remotely
+Get-Process | ConvertTo-Json :: Objects to JSON
+foreach ($s in Get-Service) { $s.Name } :: Loop over objects
+Lab: health report :: Export CPU, disk and stopped services to CSV
+Lab: remote restart :: Restart a stopped service on a second VM
+`);
+LABS.actions=MK("GitHub Actions","CI/CD inside GitHub. Workflows live in .github/workflows/ci.yml.","Create a repo, push a workflow file, and watch the Actions tab.",`
+## Workflow basics
+on: [push, pull_request] :: Triggers
+runs-on: ubuntu-latest :: Runner OS
+uses: actions/checkout@v4 :: Fetch your code
+uses: actions/setup-node@v4 :: Install a language runtime
+run: npm ci && npm test :: Run shell commands
+needs: build :: Order jobs
+strategy: matrix: node: [18, 20] :: Test several versions at once
+## Secrets, artifacts, deploys
+Settings > Secrets and variables > Actions :: Store secrets, read them via the secrets context
+uses: actions/upload-artifact@v4 :: Keep build output
+uses: actions/cache@v4 :: Speed up with caching
+uses: docker/build-push-action@v6 :: Build and push images
+environment: production :: Add approvals and environment secrets
+## Operate
+gh workflow run ci.yml :: Trigger manually
+gh run list; gh run watch :: Follow runs
+gh run view --log-failed :: Why it failed
+Lab: CI :: Lint, test and build on every PR
+Lab: Docker to ECR :: Build and push on main
+Lab: matrix + cache :: Faster, multi-version tests
+Lab: protected deploy :: Production needs approval
+`);
+LABS.devsecops=MK("DevSecOps","Put security checks in the pipeline. Scan only code and systems you own.","Install Trivy and gitleaks; <code>pip install semgrep checkov</code>",`
+## Scanning
+trivy image nginx:latest :: Find CVEs in an image
+trivy image --severity HIGH,CRITICAL --exit-code 1 app:1.0 :: Fail the pipeline on serious CVEs
+trivy fs . :: Scan project dependencies
+trivy config . :: Scan Dockerfiles, Terraform and Kubernetes YAML
+npm audit; pip-audit :: Language dependency audits
+gitleaks detect -v :: Find committed secrets
+gitleaks protect --staged :: Block secrets before commit
+semgrep --config auto . :: SAST: insecure code patterns
+checkov -d . :: Policy checks for infrastructure code
+## Hardening
+docker run --read-only --user 1000 --cap-drop ALL app :: Least-privilege container
+USER appuser :: Dockerfile line so the app never runs as root
+securityContext: runAsNonRoot: true :: Same idea in Kubernetes
+kubectl get networkpolicy -A :: Is pod traffic restricted
+cosign sign IMAGE :: Sign images for supply-chain trust
+Lab: pipeline gate :: Fail the build on HIGH CVEs and leaked secrets
+Lab: slim an image :: Swap the base image and count the CVEs dropped
+Lab: lock down a pod :: Non-root, read-only, no privilege escalation
+`);
+LABS.gitops=MK("GitOps + Argo CD","Git holds the desired state; Argo CD makes the cluster match it.","Start a kind cluster, then <code>kubectl create ns argocd</code>",`
+## Install + access
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml :: Install Argo CD
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d :: Admin password
+kubectl port-forward svc/argocd-server -n argocd 8080:443 :: Open the UI
+argocd login localhost:8080 :: CLI login
+## Applications
+argocd app create web --repo URL --path k8s --dest-server https://kubernetes.default.svc --dest-namespace dev :: Track a Git path
+argocd app list; argocd app get web :: Is it Synced and Healthy
+argocd app sync web :: Apply Git state to the cluster
+argocd app set web --sync-policy automated --self-heal :: Auto-deploy and undo manual drift
+argocd app diff web :: Git versus live differences
+argocd app rollback web :: Return to a previous revision
+kubectl get applications -n argocd :: Apps are Kubernetes objects too
+Lab: deploy by PR :: Change replicas in Git, watch Argo apply it
+Lab: drift :: Scale manually and watch self-heal revert it
+Lab: app of apps :: One Argo app that deploys others
+Lab: CI + GitOps :: Pipeline commits the new image tag to Git
+`);
+LABS.ai=MK("AI Infra + MLOps","Advanced layer. Practise on CPU with small models; use cloud GPUs briefly and shut them down.","Optional: <code>curl -fsSL https://ollama.com/install.sh | sh</code>",`
+## GPU + infrastructure
+nvidia-smi :: GPU, memory, utilization
+watch -n1 nvidia-smi :: Live GPU view
+kubectl describe node N | grep nvidia :: GPUs Kubernetes can see
+nvidia.com/gpu: 1 :: Resource limit that requests one GPU in a pod
+helm install gpu-operator nvidia/gpu-operator :: Drivers and device plugin
+docker run --gpus all IMAGE :: GPU inside a container
+## Model serving
+ollama run llama3.2:1b :: Run a small model locally
+ollama list; ollama ps :: Installed and running models
+curl localhost:11434/api/generate -d '{"model":"llama3.2:1b","prompt":"hi"}' :: Call the API
+vllm serve MODEL --port 8000 :: High-throughput OpenAI-compatible server
+curl localhost:8000/v1/models :: Check the server is up
+## MLOps + AIOps
+mlflow ui :: Experiment tracking
+dvc init; dvc add data.csv :: Version datasets with Git
+Lab: serve a model :: Ollama or vLLM behind a Kubernetes Service
+Lab: track experiments :: Log 3 runs in MLflow and compare
+Lab: AI log triage :: Give an LLM error logs, compare with your own diagnosis
+Lab: autoscale inference :: HPA driven by request rate
+`);
+LABS.docker.g.push(...MK("","","",`
+## Images + debugging
+FROM node:20-slim :: Small base image
+COPY package*.json ./ :: Copy dependency files first so layers cache
+FROM golang AS build :: Multi-stage: build in one image, ship another
+docker history IMG :: See each layer and its size
+docker build --no-cache -t app . :: Force a full rebuild
+docker stats :: Live CPU and memory
+docker cp web:/etc/nginx/nginx.conf . :: Copy files out
+docker run -m 256m --cpus 0.5 IMG :: Limit resources
+docker run --restart unless-stopped IMG :: Restart policy
+docker login; docker save -o a.tar IMG :: Registry login; export an image
+Lab: shrink an image :: Cut it under 100 MB with multi-stage
+Lab: two containers talk :: App and Postgres on a custom network
+Lab: persistent data :: Prove data survives docker rm
+`).g);
+const LK=[["linux","ps"],["pybash"],["net"],["aws"],["git","actions","jenkins"],["docker"],["k8s","helm"],["devsecops","terraform"],["gitops","monitoring"],["ai"]];
+{const o={...LABS};Object.keys(LABS).forEach(k=>delete LABS[k]);["linux","ps","pybash","net","aws","git","actions","jenkins","docker","k8s","helm","devsecops","terraform","gitops","monitoring","ai"].forEach(k=>LABS[k]=o[k])}
+
+const total=k=>LABS[k].g.reduce((a,g)=>a+g[1].length,0);
+const done=k=>Object.keys(P).filter(x=>x.startsWith(k+":")&&P[x]).length;
+const pct=k=>Math.round(100*done(k)/total(k));
+const bar=n=>`<div class="bar" role="progressbar" aria-valuenow="${n}"><i style="width:${n}%"></i></div>`;
+
+const PAGES={
+home(){const c=ME.email?`<a class="btn g" href="mailto:${ME.email}">Email</a>`:"";
+return `<section class="hero"><div>
+<h1>From zero to job-ready DevOps engineer</h1>
+<p class="lead">One offline file: the roadmap, then hands-on labs for every stage. No account, no internet, no tutorial hell.</p>
+<div class="row"><a class="btn" href="#roadmap">See the roadmap</a><a class="btn g" href="#linux">Start the Linux lab</a></div></div>
+<img src="data:image/jpeg;base64,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" alt="Abbas Kazmi"></section><div class="tk"><div>${TK+TK}</div></div>
+<h2>Why you need this</h2>
+<p>Most learners collect courses and never reach job-ready. Employers hire people who can fix a broken server, ship through a pipeline and explain what they built. This path is ordered so each skill rests on the one before it, and every stage ends with something you built, broke and repaired.</p>
+<div class="grid">
+<div class="box"><h3>Ordered</h3>Linux before containers, networking before cloud, containers before Kubernetes.</div>
+<div class="box"><h3>Practical</h3>Every lab page is commands you run on Ubuntu, with progress you can tick off.</div>
+<div class="box"><h3>Realistic</h3>18–20 months at steady part-time effort, with a portfolio project per stage.</div></div>
+<h2>Your progress</h2>
+${Object.keys(LABS).map(k=>`<p><a href="#${k}">${LABS[k].t}</a> · ${done(k)}/${total(k)}${bar(pct(k))}</p>`).join("")}
+<h2>About the author</h2>
+<div class="box"><h3>${ME.name}</h3><p>DevOps engineer in the making, building this guide while learning the path myself, so every step is one I have walked.</p>
+<div class="row"><a class="btn g" href="${ME.li}" target="_blank" rel="noopener">LinkedIn</a><a class="btn g" href="${ME.x}" target="_blank" rel="noopener">X</a>${c}</div></div>`},
+
+roadmap(){return `<h1>The roadmap</h1><p class="lead">Ten stages across about 20 months. Inside every stage use one loop: learn, practice, build, break, troubleshoot, automate.</p>
+<p>Tap a stage on the map.</p>${mapSvg()}<div class="box" id="det"></div><h2>Full stage list</h2><div class="tl">${PH.map((p,i)=>`<div class="ph"><small>${p[1]}</small><h3>${i+1}. ${p[0]}</h3><p>${p[2]}</p><p><b>Done when:</b> ${p[3]}<br><b>Build:</b> ${p[4]}</p></div>`).join("")}</div>
+<h2>What is changing in DevOps</h2>
+<div class="grid">
+<div class="box"><h3>AI writes the first draft</h3>Assistants generate Terraform, pipelines and runbooks. You are paid to review, test and own the result, so fundamentals matter more, not less.</div>
+<div class="box"><h3>AIOps</h3>Anomaly detection, alert correlation and root-cause hints cut noise on call. Learn good metrics and logs first; AI is only as good as your signals.</div>
+<div class="box"><h3>GPU and model platforms</h3>Companies now need engineers who run GPU clusters and serve models (Kubernetes, vLLM). It builds directly on Docker and Kubernetes.</div>
+<div class="box"><h3>Platform engineering</h3>Teams build internal self-service platforms. Terraform, GitOps and Kubernetes are the core skills.</div></div>
+<h2>Also add</h2>
+<ul><li><b>Portfolio:</b> one public GitHub repo per stage, each with a README and diagram.</li>
+<li><b>Certifications:</b> AWS Solutions Architect Associate around month 9; CKA near month 15.</li>
+<li><b>Interviews:</b> from month 14, practise explaining outages, trade-offs and your projects aloud.</li>
+<li><b>Writing:</b> post what you learn on LinkedIn weekly; it becomes proof of work.</li></ul>
+<h2>Next steps after you start</h2><p>Planned lab pages: Kubernetes and AWS, built in the same format as the pages here.</p>`},
+
+lab(k){const L=LABS[k];return `<h1>${L.t} lab</h1><p class="lead">${L.d}</p><div class="box">${L.setup}</div>
+<p><b id="pc">${done(k)}/${total(k)}</b> complete${bar(pct(k))}</p>
+${L.g.map((g,gi)=>`<h2>${g[0]}</h2>${g[1].map((c,i)=>{const id=`${k}:${gi}.${i}`;return `<label class="item${P[id]?" d":""}"><input type="checkbox" data-k="${id}" ${P[id]?"checked":""}><div><code class="cmd" data-c="${esc(c[0])}" title="Click to copy">${esc(c[0])}</code><span>${esc(c[1])}</span></div></label>`}).join("")}`).join("")}
+<div class="row"><button class="btn g" data-reset="${k}">Reset this lab</button></div>`}};
+
+function render(){const r=location.hash.slice(1)||"home";
+$app.innerHTML=r in LABS?PAGES.lab(r):(PAGES[r]||PAGES.home)();
+const tabs=[["home","Home"],["roadmap","Roadmap"],...Object.keys(LABS).map(k=>[k,LABS[k].t+" "+pct(k)+"%"])];
+nav.innerHTML="<b>DevOps Zero→Job</b>"+tabs.map(t=>`<a href="#${t[0]}" class="${t[0]==r?"on":""}">${t[1]}</a>`).join("");
+scrollTo(0,0);if(document.getElementById('det'))sel(0)}
+const $app=document.getElementById("app"),nav=document.getElementById("nav");
+addEventListener("hashchange",render);
+document.addEventListener("change",e=>{const k=e.target.dataset&&e.target.dataset.k;if(!k)return;P[k]=e.target.checked;save();
+e.target.closest(".item").classList.toggle("d",e.target.checked);const lab=k.split(":")[0];
+document.getElementById("pc").textContent=done(lab)+"/"+total(lab);
+document.querySelector(".bar i").style.width=pct(lab)+"%";nav.querySelector(".on").textContent=LABS[lab].t+" "+pct(lab)+"%"});
+document.addEventListener("click",e=>{const c=e.target.closest("[data-c]");
+if(c){e.preventDefault();try{navigator.clipboard.writeText(c.dataset.c)}catch(x){}tmIn(c.dataset.c);}
+const r=e.target.closest("[data-reset]");if(r&&confirm("Clear progress for this lab?")){Object.keys(P).forEach(x=>{if(x.startsWith(r.dataset.reset+":"))delete P[x]});save();render()}});
+const TK="LINUX ◆ BASH ◆ GIT ◆ JENKINS ◆ DOCKER ◆ KUBERNETES ◆ HELM ◆ TERRAFORM ◆ AWS ◆ PROMETHEUS ◆ GRAFANA ◆ AIOPS ◆ ";
+const SH=["Linux","Bash+Py","Network","AWS","Git+CI/CD","Docker","K8s","Sec+IaC","GitOps+Obs","AI era"];
+function mapSvg(){const pt=SH.map((_,i)=>[70+i*95.5,470-i*36+(i%2?-55:35)]);
+let d="M"+pt[0];for(let i=1;i<pt.length;i++){const a=pt[i-1],b=pt[i],m=(a[0]+b[0])/2;d+=`C${m},${a[1]} ${m},${b[1]} ${b[0]},${b[1]}`}
+const tv=`<animateMotion dur="18s" repeatCount="indefinite"><mpath href="#rd"/></animateMotion>`;
+const nd=pt.map((p,i)=>`<g class="nd" data-n="${i}" tabindex="0" role="button" aria-label="${PH[i][0]}"><circle class="pl" cx="${p[0]}" cy="${p[1]}" r="16"><animate attributeName="r" from="16" to="36" dur="2.6s" begin="${i*.25}s" repeatCount="indefinite"/><animate attributeName="opacity" from=".6" to="0" dur="2.6s" begin="${i*.25}s" repeatCount="indefinite"/></circle><circle cx="${p[0]}" cy="${p[1]}" r="17"/><text x="${p[0]}" y="${p[1]+5}">${i+1}</text><text class="lb" x="${p[0]}" y="${p[1]+40}">${SH[i]}</text></g>`).join("");
+return `<div class="map"><svg viewBox="0 0 1000 560" role="img" aria-label="Roadmap map"><defs><filter id="g"><feGaussianBlur stdDeviation="4"/></filter></defs><path id="rd" class="road" d="${d}"/><path class="flow" d="${d}"/>${nd}<circle r="9" fill="#A78BFA" filter="url(#g)">${tv}</circle><circle r="4" fill="#fff">${tv}</circle></svg></div>`}
+function sel(n){const p=PH[n],d=document.getElementById("det");if(!d)return;
+d.innerHTML=`<small style="color:var(--tl)">${p[1]}</small><h3>${n+1}. ${p[0]}</h3><p>${p[2]}</p><p><b>Done when:</b> ${p[3]}<br><b>Build:</b> ${p[4]}</p><div class="row">${LK[n].map(k=>`<a class="btn" href="#${k}">${LABS[k].t} lab</a>`).join("")}</div>`;
+document.querySelectorAll(".nd").forEach((g,i)=>g.classList.toggle("on",i==n))}
+document.addEventListener("click",e=>{const n=e.target.closest("[data-n]");if(n)sel(+n.dataset.n)});
+document.addEventListener("keydown",e=>{const n=e.target.closest&&e.target.closest("[data-n]");if(n&&(e.key=="Enter"||e.key==" ")){e.preventDefault();sel(+n.dataset.n)}});
+(()=>{const cv=document.createElement("canvas");cv.id="fx";document.body.prepend(cv);const cx=cv.getContext("2d");let W,H,pts=[],mx=-999,my=-999;
+const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;pts=Array.from({length:Math.min(90,W*H/14000|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}))}
+function ln(a,b,r,al){const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<r){cx.strokeStyle=`rgba(77,243,227,${al*(1-d/r)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}}
+function tick(){cx.clearRect(0,0,W,H);const m={x:mx,y:my};
+for(const p of pts){if(!still){p.x+=p.vx;p.y+=p.vy}if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;cx.fillStyle="rgba(77,243,227,.8)";cx.fillRect(p.x,p.y,2,2);ln(p,m,170,.5)}
+for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++)ln(pts[i],pts[j],130,.2);
+if(!still)requestAnimationFrame(tick)}
+addEventListener("resize",()=>{rs();if(still)tick()});addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY});rs();tick()})();
+const FS={home:{abbas:{"notes.txt":"learn linux\ndevops is fun\nerror handling matters\n",projects:{},"todo.md":"- ssh\n- docker\n"}},etc:{hostname:"ubuntu-lab\n","os-release":'PRETTY_NAME="Ubuntu 24.04 LTS"\nVERSION_ID="24.04"\n',passwd:"root:x:0:0:root:/root:/bin/bash\nabbas:x:1000:1000::/home/abbas:/bin/bash\n","nginx.conf":"worker_processes 1;\n"},var:{log:{syslog:"Oct 4 10:00:01 ubuntu-lab systemd[1]: Started cron.service\nOct 4 10:02:11 ubuntu-lab sshd[812]: error: key exchange failed\nOct 4 10:05:42 ubuntu-lab kernel: error: disk almost full\n"}},tmp:{},usr:{bin:{}},opt:{}};
+let cwd=["home","abbas"];const M={},H=[];
+const O=()=>document.getElementById("to");
+const norm=p=>{let a=p[0]=="/"?[]:cwd.slice();if(p[0]=="~"){a=["home","abbas"];p=p.slice(1)}for(const s of p.split("/")){if(!s||s==".")continue;if(s=="..")a.pop();else a.push(s)}return a};
+const nodeAt=a=>{let n=FS;for(const s of a){if(typeof n!="object"||!(s in n))return;n=n[s]}return n};
+const str=x=>{const t=nodeAt(norm(x));return typeof t=="string"?t:""};
+const tok=s=>(s.match(/"[^"]*"|'[^']*'|\S+/g)||[]).map(x=>/^["']/.test(x)?x.slice(1,-1):x);
+const lines=s=>s.replace(/\n$/,"").split("\n");
+function ex(c,a,inp){
+const f=a.filter(x=>x[0]!="-"),fl=a.filter(x=>x[0]=="-").join(""),src=()=>f[0]?str(f[0]):inp;
+switch(c){
+case"pwd":return"/"+cwd.join("/");
+case"whoami":return"abbas";
+case"hostname":return"ubuntu-lab";
+case"id":return"uid=1000(abbas) gid=1000(abbas) groups=1000(abbas),27(sudo)";
+case"date":return new Date().toString();
+case"uname":return fl.includes("a")?"Linux ubuntu-lab 6.8.0-45-generic x86_64 GNU/Linux":"Linux";
+case"echo":return a.join(" ");
+case"clear":O().innerHTML="";return"";
+case"uptime":return" 10:30:00 up 3 days, 2 users, load average: 0.12, 0.08, 0.05";
+case"free":return"               total   used   free\nMem:           7.7Gi  1.2Gi  5.9Gi\nSwap:          2.0Gi    0B   2.0Gi";
+case"df":return"Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        40G   12G   26G  32% /\ntmpfs           3.9G     0  3.9G   0% /dev/shm";
+case"ps":return"  PID TTY          TIME CMD\n    1 ?        00:00:02 systemd\n  812 ?        00:00:00 sshd\n 1042 pts/0    00:00:00 bash\n 1301 pts/0    00:00:00 ps";
+case"history":return H.map((l,i)=>" "+(i+1)+"  "+l).join("\n");
+case"systemctl":return a[0]=="status"?"● "+a[1]+".service\n     Loaded: loaded (enabled)\n     Active: active (running) since Sat 2026-10-04 10:00:00 UTC":"";
+case"apt":case"apt-get":return a[0]=="install"?"Reading package lists... Done\nSetting up "+f.slice(1).join(" ")+" ...\nDone.":"Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease\nReading package lists... Done";
+case"ls":{const ap=f[0]?norm(f[0]):cwd,t=nodeAt(ap);if(t==null)return"ls: cannot access '"+f[0]+"': No such file or directory";if(typeof t=="string")return f[0];const k=Object.keys(t).filter(n=>fl.includes("a")||n[0]!=".").sort();
+if(fl.includes("l"))return"total "+k.length+"\n"+k.map(n=>{const d=typeof t[n]=="object";return(d?"d":"-")+(M["/"+[...ap,n].join("/")]||(d?"rwxr-xr-x":"rw-r--r--"))+" 1 abbas abbas "+String((t[n]+"").length).padStart(5)+" Oct  4 10:00 "+n}).join("\n");return k.join("  ")}
+case"cd":{const a2=norm(f[0]||"~"),t=nodeAt(a2);if(typeof t!="object")return"cd: "+f[0]+": No such file or directory";cwd=a2;return""}
+case"mkdir":f.forEach(x=>{let n=FS;norm(x).forEach(s=>{if(typeof n[s]!="object"&&typeof n[s]!="string")n[s]={};n=n[s]})});return"";
+case"touch":f.forEach(x=>{const a2=norm(x),p=nodeAt(a2.slice(0,-1));if(p&&typeof p=="object"&&!(a2.at(-1) in p))p[a2.at(-1)]=""});return"";
+case"cat":return f.length?f.map(x=>{const t=nodeAt(norm(x));return t==null?"cat: "+x+": No such file or directory":typeof t=="object"?"cat: "+x+": Is a directory":t.replace(/\n$/,"")}).join("\n"):inp;
+case"rm":{let o="";f.forEach(x=>{const a2=norm(x),p=nodeAt(a2.slice(0,-1)),k=a2.at(-1);if(!p||!(k in p))o+="rm: cannot remove '"+x+"': No such file or directory\n";else if(typeof p[k]=="object"&&!fl.includes("r"))o+="rm: cannot remove '"+x+"': Is a directory\n";else delete p[k]});return o.trim()}
+case"cp":case"mv":{const s=norm(f[0]),sn=nodeAt(s);if(sn==null)return c+": cannot stat '"+f[0]+"': No such file or directory";let d=norm(f[1]),dn=nodeAt(d);if(typeof dn=="object")d=[...d,s.at(-1)];const dp=nodeAt(d.slice(0,-1));if(!dp)return c+": cannot create '"+f[1]+"'";dp[d.at(-1)]=JSON.parse(JSON.stringify(sn));if(c=="mv")delete nodeAt(s.slice(0,-1))[s.at(-1)];return""}
+case"chmod":{if(/^[0-7]{3}$/.test(f[0]))M["/"+norm(f[1]).join("/")]=[...f[0]].map(d=>[..."rwx"].map((ch,i)=>d&(4>>i)?ch:"-").join("")).join("");return""}
+case"chown":return"";
+case"head":case"tail":{const i=a.indexOf("-n"),n=i>=0?+a[i+1]:10,fi=f.filter(x=>x!=a[i+1]),s=lines(fi[0]?str(fi[0]):inp);return(c=="head"?s.slice(0,n):s.slice(-n)).join("\n")}
+case"grep":{const re=new RegExp(f[0],fl.includes("i")?"i":""),r=lines(f[1]?str(f[1]):inp).map((l,i)=>[l,i+1]).filter(x=>re.test(x[0]));return fl.includes("c")?""+r.length:r.map(x=>(fl.includes("n")?x[1]+":":"")+x[0]).join("\n")}
+case"wc":{const s=src(),l=s?s.replace(/\n$/,"").split("\n").length:0;return fl.includes("l")?""+l:l+" "+s.split(/\s+/).filter(Boolean).length+" "+s.length}
+case"sort":{const s=lines(src()).sort();return(fl.includes("r")?s.reverse():s).join("\n")}
+case"uniq":{const r=[];lines(src()).forEach(l=>{const q=r.at(-1);if(q&&q[0]==l)q[1]++;else r.push([l,1])});return r.map(x=>fl.includes("c")?String(x[1]).padStart(4)+" "+x[0]:x[0]).join("\n")}
+case"tree":{const w=(n,p)=>Object.keys(n).sort().map((k,i,ar)=>{const l=i==ar.length-1,s=p+(l?"└── ":"├── ")+k;return typeof n[k]=="object"?s+"\n"+w(n[k],p+(l?"    ":"│   ")):s}).join("\n");return(".\n"+w(nodeAt(cwd),"")).replace(/\n+/g,"\n")}
+case"find":{const nm=a.indexOf("-name"),re=nm>=0?new RegExp("^"+a[nm+1].replace(/[.+^$()]/g,"\\$&").replace(/\*/g,".*").replace(/\?/g,".")+"$"):null,st=a[0]&&a[0][0]!="-"?a[0]:".",r=[],w=(n,p)=>{for(const k in n){const q=p+"/"+k;if(!re||re.test(k))r.push(q);if(typeof n[k]=="object")w(n[k],q)}};const b=nodeAt(norm(st));if(typeof b!="object")return"find: '"+st+"': No such file or directory";w(b,st=="/"?"":st);return r.join("\n")}
+case"help":return"Try: pwd ls cd mkdir touch cat echo rm cp mv chmod head tail grep wc sort uniq find tree\nwhoami id date uname df free ps uptime systemctl apt history clear\nPipes (|) and redirects (> >>) work. This is a safe simulator, not a real server.";
+}
+return c+": command not found (the simulator covers common Linux commands; type help)"}
+function run(line){let inp="";for(const sg of line.split("|")){let t=tok(sg),rd=null,ap=false;const ri=t.findIndex(x=>x==">"||x==">>");if(ri>=0){ap=t[ri]=="> >"||t[ri]==">>";rd=t[ri+1];t=t.slice(0,ri)}
+if(t[0]=="sudo")t=t.slice(1);if(!t.length)continue;let o;try{o=ex(t[0],t.slice(1),inp)}catch(e){o=t[0]+": "+e.message}
+if(rd){const a=norm(rd),p=nodeAt(a.slice(0,-1));if(p&&typeof p=="object"){const k=a.at(-1);p[k]=(ap&&typeof p[k]=="string"?p[k]:"")+o+"\n";o=""}else o="No such file or directory"}inp=o}return inp}
+//UI
+const ps1=()=>"abbas@ubuntu-lab:"+(cwd.join("/")=="home/abbas"?"~":"/"+cwd.join("/"))+"$ ";
+(()=>{const tm=document.createElement("aside");tm.id="tm";tm.innerHTML='<div class="th"><i></i><i></i><i></i><b>abbas@ubuntu-lab</b><span>Ubuntu 24.04 · sandbox</span><button id="tx" aria-label="Close terminal">×</button></div><div id="to" role="log"></div><div class="ti"><span id="tp"></span><input id="tin" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal input"></div>';document.body.append(tm);
+const fb=document.createElement("button");fb.id="fb";fb.textContent="▮ Terminal";document.body.append(fb);
+const tin=document.getElementById("tin"),tp=document.getElementById("tp"),pr=(t,c)=>{const d=document.createElement("div");if(c)d.className=c;d.textContent=t;O().append(d);O().scrollTop=1e9};
+const open=v=>{document.body.classList.toggle("tm",v);if(v)tin.focus()};let hi=0;
+pr("Ubuntu 24.04 LTS · browser sandbox. Type help, or click any Linux command in a lab to load it here.","ok");tp.textContent=ps1();
+fb.onclick=()=>open(true);document.getElementById("tx").onclick=()=>open(false);
+window.tmIn=c=>{if(!["linux","net","pybash"].includes(location.hash.slice(1)))return;open(true);tin.value=c;tin.focus()};
+tin.addEventListener("keydown",e=>{
+if(e.key=="Enter"){const l=tin.value.trim();pr(ps1()+l,"p");tin.value="";if(l){H.push(l);hi=H.length;const o=run(l);if(o)pr(o);
+const chip=[...document.querySelectorAll("[data-c]")].find(x=>x.dataset.c==l);const cb=chip&&chip.closest(".item").querySelector("input");if(cb&&!cb.checked){cb.checked=true;cb.dispatchEvent(new Event("change",{bubbles:true}));pr("✔ lab item completed","ok")}}tp.textContent=ps1()}
+else if(e.key=="ArrowUp"&&H.length){hi=Math.max(0,hi-1);tin.value=H[hi];e.preventDefault()}
+else if(e.key=="ArrowDown"){hi=Math.min(H.length,hi+1);tin.value=H[hi]||"";e.preventDefault()}
+else if(e.key=="l"&&e.ctrlKey){O().innerHTML="";e.preventDefault()}});
+})();
+render();
+</script></body></html>
