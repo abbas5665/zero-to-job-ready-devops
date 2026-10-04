@@ -6,6 +6,11 @@
 
 [🌐 Live Website](https://abbas5665.github.io/zero-to-job-ready-devops/) · [📂 GitHub Repository](https://github.com/abbas5665/zero-to-job-ready-devops)
 
+## 📸 Project Preview
+
+![Zero to Job-Ready DevOps Roadmap](screenshot.png)
+
+**Explore the live demo:** https://abbas5665.github.io/zero-to-job-ready-devops/
 ---
 
 ## 📌 About the Project
